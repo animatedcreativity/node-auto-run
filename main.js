@@ -65,11 +65,7 @@ exports = module.exports = function(config) {
           app.checks[project] += 1;
           if (app.checks[project] >= config.checks) {
             var {error, result} = await app.wrapper("result", app.exec(project));
-            if (typeof result !== "undefined") {
-              console.log("Started project: " + project);
-            } else {
-              console.log("Could not start project: " + project);
-            }
+            console.log("Started project: " + project);
             app.checks[project] = 0;
           }
         }
