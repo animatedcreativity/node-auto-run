@@ -86,3 +86,12 @@ exports = module.exports = function(config) {
   }
   return app;
 };
+var fs = require("fs");
+var sanitize = require("node-sanitize-options");
+var config;
+if (fs.existsSync("../node-auto-run.js") === true) config = sanitize.options(config, require("../node-auto-run.js")());
+if (fs.existsSync("./config.js") === true) config = sanitize.options(config, require("./config.js")());
+config = sanitize.options(config, {});
+if (config.start === true) {
+  new exports();
+}
