@@ -7,8 +7,9 @@
     "start": "node main.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "ps-node": "^0.1.6"
+    "ps-node": "^0.1.6",
+    "node-promise-wrapper": "^0.0.2",
+    "node-sanitize-options": "^0.0.6"
   },
   "engines": {
     "node": "8.x"
