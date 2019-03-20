@@ -1,0 +1,26 @@
+{
+  "name": "node-auto-run",
+  "version": "0.0.1",
+  "description": "Auto run node projects.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "ps-node": "^0.1.6"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://github.com/animatedcreativity/node-auto-run"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "auto",
+    "run",
+    "project"
+  ]
+}
