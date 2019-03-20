@@ -12,7 +12,7 @@ exports = module.exports = function(config) {
     ps: require("ps-node"),
     exec: function(project) {
       return new Promise(async function(resolve, reject) {
-        app._exec("npm start --prefix " + project + " " + project, function(error, stdout, stderr) {
+        app._exec("nohup npm start --prefix " + project + " " + project + " 2>/dev/null 1>/dev/null & ", function(error, stdout, stderr) {
           if (typeof error === "undefined") {
             resolve(stdout);
           } else {
