@@ -1,15 +1,20 @@
-exports = module.exports = function(config) {
-  var sanitize = require("node-sanitize-options");
-  var fs = require("fs");
+var fs = require("fs");
+var sanitize = require("node-sanitize-options");
+var getConfig = function(config) {
   if (fs.existsSync("../node-auto-run.js") === true) config = sanitize.options(config, require("../node-auto-run.js")());
   if (fs.existsSync("./config.js") === true) config = sanitize.options(config, require("./config.js")());
   config = sanitize.options(config, {});
+  return config;
+}
+exports = module.exports = function(config) {
+  config = getConfig(config);
   var app = {
     _exec: require('child_process').exec,
     fs: fs,
     sanitize: sanitize,
     wrapper: require("node-promise-wrapper"),
     ps: require("ps-node"),
+    config: getConfig,
     exec: function(project) {
       return new Promise(async function(resolve, reject) {
         app._exec("nohup npm start --prefix " + project + " " + project + " 2>/dev/null 1>/dev/null & ", function(error, stdout, stderr) {
@@ -58,6 +63,10 @@ exports = module.exports = function(config) {
     },
     checks: {},
     check: async function() {
+      var newConfig = app.config();
+      if (JSON.stringify(config) !== JSON.stringify(newConfig)) {
+        config = newConfig;
+      }
       for (var project in config.projects) {
         var {error, process} = await app.wrapper("process", app.process(project));
         if (typeof process === "undefined") {
@@ -82,12 +91,5 @@ exports = module.exports = function(config) {
   }
   return app;
 };
-var fs = require("fs");
-var sanitize = require("node-sanitize-options");
-var config;
-if (fs.existsSync("../node-auto-run.js") === true) config = sanitize.options(config, require("../node-auto-run.js")());
-if (fs.existsSync("./config.js") === true) config = sanitize.options(config, require("./config.js")());
-config = sanitize.options(config, {});
-if (config.start === true) {
-  new exports();
-}
+var config = getConfig();
+if (config.start === true) new exports();

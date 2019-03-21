@@ -1,8 +1,8 @@
 exports = module.exports = function() {
   return {
     start: false,
-    interval: 1000, // milliseconds
-    checks: 5,
+    interval: 30000, // milliseconds, 30 seconds
+    checks: 2,
     projects: {
       
     }

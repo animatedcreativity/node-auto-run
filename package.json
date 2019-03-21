@@ -1,7 +1,7 @@
 {
   "name": "node-auto-run",
   "version": "0.0.1",
-  "description": "Auto run node projects.",
+  "description": "Starts node projects automatically and keeps checking for them. Starts the projects again if they get crashed. Keeps checking of newly added projects in config file.",
   "main": "main.js",
   "scripts": {
     "start": "node main.js"
@@ -22,6 +22,8 @@
     "node",
     "auto",
     "run",
-    "project"
+    "project",
+    "refresh",
+    "crash"
   ]
 }
