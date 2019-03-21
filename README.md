@@ -108,4 +108,4 @@ var config = runner.config();
 
 Fun part: what if the node project of this module itself gets crashed?
 
-It will be good if you run this module as a standalone node project. Make 2 copies of the same module's node project and add each other into their config's project list.
+It will be good if you run this module as a standalone node project. Make 2 copies of the same module's node project and add each other into their config's project list. Start just one copy as it will take care of everything else.
