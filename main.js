@@ -1,20 +1,11 @@
-var fs = require("fs");
-var sanitize = require("node-sanitize-options");
-var getConfig = function(config) {
-  if (fs.existsSync("../node-auto-run.js") === true) config = sanitize.options(config, require("../node-auto-run.js")());
-  if (fs.existsSync("./config.js") === true) config = sanitize.options(config, require("./config.js")());
-  config = sanitize.options(config, {});
-  return config;
-}
 exports = module.exports = function(config) {
-  config = getConfig(config);
+  var fileConfig = require("node-file-config")("node-auto-run");
+  config = fileConfig.get(config);
   var app = {
     _exec: require('child_process').exec,
-    fs: fs,
-    sanitize: sanitize,
     wrapper: require("node-promise-wrapper"),
     ps: require("ps-node"),
-    config: getConfig,
+    config: fileConfig.get,
     exec: function(project) {
       return new Promise(async function(resolve, reject) {
         app._exec("nohup npm start --prefix " + project + " " + project + " 2>/dev/null 1>/dev/null & ", function(error, stdout, stderr) {
@@ -84,12 +75,10 @@ exports = module.exports = function(config) {
       }, config.interval);
     },
   };
-  if (Object.keys(config.projects).length > 0) {
-    app.check();
-  } else {
-    console.log("No project defined.");
-  }
+  app.check();
+  console.log("No project defined. Will keep looking for changes in config files.");
   return app;
 };
-var config = getConfig();
-if (config.start === true) new exports();
+var fileConfig = require("node-file-config");
+var config = new fileConfig("node-auto-run");
+if (config.get().start === true) new exports();
