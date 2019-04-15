@@ -10,7 +10,8 @@
     "ps-node": "^0.1.6",
     "node-promise-wrapper": "^0.0.2",
     "node-sanitize-options": "^0.0.6",
-    "node-file-config": "^0.0.5"
+    "node-file-config": "^0.0.6",
+    "express": "^4.16.4"
   },
   "engines": {
     "node": "8.x"

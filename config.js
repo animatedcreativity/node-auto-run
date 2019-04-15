@@ -5,6 +5,7 @@ exports = module.exports = function() {
     checks: 2,
     projects: {
       
-    }
+    },
+    expressPort: 3000
   }
 }

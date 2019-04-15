@@ -1,6 +1,12 @@
 exports = module.exports = function(config) {
   var fileConfig = require("node-file-config")("node-auto-run");
   config = fileConfig.get(config);
+  /* just for not allowing another copy of node-auto-run */
+  var expressApp = require("express");
+  var express = new expressApp();
+  express.listen(config.expressPort, function() {
+    console.log("Your app is listening on port: " + config.expressPort);
+  });
   var app = {
     _exec: require('child_process').exec,
     wrapper: require("node-promise-wrapper"),
